@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 13, 2022 at 02:06 AM
+-- Generation Time: Aug 18, 2022 at 01:26 AM
 -- Server version: 5.7.33
 -- PHP Version: 7.4.19
 
@@ -24,32 +24,16 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin`
---
-
-CREATE TABLE `admin` (
-  `id` int(11) NOT NULL,
-  `nama` varchar(250) NOT NULL,
-  `username` varchar(250) NOT NULL,
-  `password` varchar(250) NOT NULL,
-  `email` varchar(250) NOT NULL,
-  `no_telp` tinyint(50) NOT NULL,
-  `status` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `list_tugas`
 --
 
 CREATE TABLE `list_tugas` (
-  `id` int(11) NOT NULL,
-  `id_tempat_sampah` int(25) NOT NULL,
-  `id_mobil_sampah` int(25) NOT NULL,
-  `id_admin` int(25) NOT NULL,
-  `status` varchar(50) NOT NULL,
-  `waktu` date NOT NULL
+  `ID_LIST_TUGAS` int(11) NOT NULL,
+  `ID_TEMPAT_SAMPAH` int(25) NOT NULL,
+  `ID_MOBIL_SAMPAH` int(25) NOT NULL,
+  `ID_PENGGUNA` int(25) NOT NULL,
+  `STATUS_LIST` varchar(50) NOT NULL DEFAULT 'angkut' COMMENT 'angkut, menuju lokasi',
+  `TANGGAL` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -59,12 +43,20 @@ CREATE TABLE `list_tugas` (
 --
 
 CREATE TABLE `mobil_sampah` (
-  `id` int(11) NOT NULL,
-  `id_tempat_sampah` int(11) NOT NULL,
-  `no_telp` varchar(50) NOT NULL,
-  `status` varchar(100) NOT NULL,
-  `lokasi` varchar(50) NOT NULL
+  `ID_MOBIL_SAMPAH` int(11) NOT NULL,
+  `MEREK` varchar(255) DEFAULT NULL,
+  `NO_PLAT` varchar(50) NOT NULL,
+  `STATUS` varchar(100) NOT NULL DEFAULT 'ready' COMMENT 'ready, dipakai, service',
+  `LOKASI` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `mobil_sampah`
+--
+
+INSERT INTO `mobil_sampah` (`ID_MOBIL_SAMPAH`, `MEREK`, `NO_PLAT`, `STATUS`, `LOKASI`) VALUES
+(1, 'Tosa', 'W 123 BH', 'ready', 'Omah e masrizal'),
+(2, 'PCX', 'w 123 gh', 'ready', 'Kendal');
 
 -- --------------------------------------------------------
 
@@ -87,8 +79,9 @@ CREATE TABLE `pengguna` (
 
 INSERT INTO `pengguna` (`ID_PENGGUNA`, `NAMA_PENGGUNA`, `EMAIL_PENGGUNA`, `PASSWORD_PENGGUNA`, `NOHP_PENGGUNA`, `JABATAN_PENGGUNA`) VALUES
 (1, 'Zaidan', 'zaidan@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '0979878687', 'Administrator'),
-(3, 'Mohammad Zaidan Salim', 'zaidan@mutiaract.com', '871c62f5e67defd80aceac2def69254c', 'sunanampel10', 'Petugas'),
-(4, 'Kosanku Store', 'kosankukosan@gmail.com', '07a37c9f017ed8d24ce03c7a3a8301f3', '085678810909', 'Petugas');
+(3, 'Mohammad Zaidan Salim', 'zaidan@mutiaract.com', 'e10adc3949ba59abbe56e057f20f883e', '123', 'Petugas'),
+(4, 'Kosanku Store', 'kosankukosan@gmail.com', '07a37c9f017ed8d24ce03c7a3a8301f3', '085678810909', 'Petugas'),
+(5, 'MASRIZAL EKA YULIANTO', 'masrizal04@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '089695615256', 'Petugas');
 
 -- --------------------------------------------------------
 
@@ -98,39 +91,40 @@ INSERT INTO `pengguna` (`ID_PENGGUNA`, `NAMA_PENGGUNA`, `EMAIL_PENGGUNA`, `PASSW
 
 CREATE TABLE `tempat_sampah` (
   `ID_TEMPAT_SAMPAH` int(11) NOT NULL,
+  `NAMA_TEMPAT_SAMPAH` varchar(255) DEFAULT NULL,
   `LONGITUDE` varchar(100) NOT NULL,
   `LATITUDE` varchar(100) NOT NULL,
-  `LOKASI` varchar(100) NOT NULL
+  `LOKASI` varchar(100) NOT NULL,
+  `BERAT` int(11) DEFAULT '0' COMMENT 'satuan persen',
+  `STATUS_JEMPUT` int(1) NOT NULL DEFAULT '0' COMMENT '1 jika ada yang kelokasi, 0 untuk tidak ada'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tempat_sampah`
 --
 
-INSERT INTO `tempat_sampah` (`ID_TEMPAT_SAMPAH`, `LONGITUDE`, `LATITUDE`, `LOKASI`) VALUES
-(3, '12345', 'jsdbfjhbdffvbdj', 'dinoyo jatirejo mojokerto');
+INSERT INTO `tempat_sampah` (`ID_TEMPAT_SAMPAH`, `NAMA_TEMPAT_SAMPAH`, `LONGITUDE`, `LATITUDE`, `LOKASI`, `BERAT`, `STATUS_JEMPUT`) VALUES
+(3, 'Gebang', '123451', '123', 'dinoyo jatirejo mojokerto', 0, 0),
+(4, 'Pasar Larangan', '123', '123', 'Pasar Larangan', 0, 0);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `admin`
---
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `list_tugas`
 --
 ALTER TABLE `list_tugas`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`ID_LIST_TUGAS`),
+  ADD KEY `ID_MOBIL_SAMPAH` (`ID_MOBIL_SAMPAH`),
+  ADD KEY `ID_PENGGUNA` (`ID_PENGGUNA`),
+  ADD KEY `ID_TEMPAT_SAMPAH` (`ID_TEMPAT_SAMPAH`);
 
 --
 -- Indexes for table `mobil_sampah`
 --
 ALTER TABLE `mobil_sampah`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`ID_MOBIL_SAMPAH`);
 
 --
 -- Indexes for table `pengguna`
@@ -149,34 +143,40 @@ ALTER TABLE `tempat_sampah`
 --
 
 --
--- AUTO_INCREMENT for table `admin`
---
-ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `list_tugas`
 --
 ALTER TABLE `list_tugas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_LIST_TUGAS` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `mobil_sampah`
 --
 ALTER TABLE `mobil_sampah`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_MOBIL_SAMPAH` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `pengguna`
 --
 ALTER TABLE `pengguna`
-  MODIFY `ID_PENGGUNA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID_PENGGUNA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tempat_sampah`
 --
 ALTER TABLE `tempat_sampah`
-  MODIFY `ID_TEMPAT_SAMPAH` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID_TEMPAT_SAMPAH` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `list_tugas`
+--
+ALTER TABLE `list_tugas`
+  ADD CONSTRAINT `list_tugas_ibfk_1` FOREIGN KEY (`ID_MOBIL_SAMPAH`) REFERENCES `mobil_sampah` (`ID_MOBIL_SAMPAH`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `list_tugas_ibfk_2` FOREIGN KEY (`ID_PENGGUNA`) REFERENCES `pengguna` (`ID_PENGGUNA`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `list_tugas_ibfk_3` FOREIGN KEY (`ID_TEMPAT_SAMPAH`) REFERENCES `tempat_sampah` (`ID_TEMPAT_SAMPAH`) ON DELETE CASCADE ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

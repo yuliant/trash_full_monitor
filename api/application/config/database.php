@@ -83,7 +83,7 @@ $db['default'] = array(
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
-	'database' => 'ilmea',
+	'database' => 'trash_full_monitor',
 
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',

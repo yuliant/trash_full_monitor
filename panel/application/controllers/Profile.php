@@ -36,7 +36,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				}else{
 					$this->session->set_flashdata(
 			 			array('notif'=>2));
-					//redirect("profile");	
+					redirect("profile");	
 				}
 
 			}else{
@@ -46,5 +46,3 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			}
 		}
 	}
-
-?>
