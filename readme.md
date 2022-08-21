@@ -7,10 +7,8 @@
 - Email 		: masrizal04@gmail.com
 - password 	: 123456
 
-# EndPoint
-- Input tugas : ...
-- Kosongkan tempat sampah : ...
-- Monitor tempat sampah : ... (1 menit)
+# EndPoint Alat
+- Monitor tempat sampah : http://localhost/trash_full_monitor/api/rest/trash/backend/update_volume?API-KEY=masrizal&berat=[beratsampah/persen]&id_tempat_sampah=[idtempat_sampah] (1 menit)
 
 # List bug (website)
 1. Dashboard [DONE]
