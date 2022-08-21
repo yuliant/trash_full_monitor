@@ -15,7 +15,7 @@ class Login extends CI_Controller
         $api_key = htmlspecialchars($this->input->post('API-KEY'), true);
         $data = [
             'email' => htmlspecialchars($this->input->post('email'), true),
-            'password' => htmlspecialchars($this->input->post('password'), true),
+            'password' => md5($this->input->post('password')),
         ];
 
         if (!$api_key || !$data) {
@@ -44,12 +44,16 @@ class Login extends CI_Controller
 
         if ($query->num_rows() > 0) {
 
-            if (password_verify($data['password'], $query->row()->PASSWORD_PENGGUNA)) {
-                if ($row->row()->ID_HAK_AKSES == '4') {
+            $email = $data['email'];
+            $password = $data['password'];
+
+            $hasil = $this->db->query("SELECT * FROM pengguna WHERE EMAIL_PENGGUNA = '$email' AND PASSWORD_PENGGUNA = '$password'")->row();
+            if ($hasil) {
+                if ($hasil->JABATAN_PENGGUNA == 'Petugas') {
                     $respon = [
                         'status' => true,
                         'message' => "Data berhasil didapatkan",
-                        'data' => $row->row()
+                        'data' => $hasil
                     ];
                 } else {
                     $respon = [

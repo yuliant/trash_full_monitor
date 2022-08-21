@@ -24,6 +24,12 @@ class Tempat_sampah extends CI_Controller
 		$this->load->view('_partials/footer');
 	}
 
+	public function gps($id)
+	{
+		$data['tempat_sampah'] = $this->db->query("SELECT * from tempat_sampah WHERE ID_TEMPAT_SAMPAH = '$id'")->row();
+		$this->load->view('admin/tempat_sampah_gps', $data);
+	}
+
 	function update()
 	{
 		$id 		= $this->input->post('id');
