@@ -1,0 +1,284 @@
+{
+	"info": {
+		"_postman_id": "eb7e6918-6882-4c6e-bee8-335a0330cc69",
+		"name": "Trash Full Monitor",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "masrizal04@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "API-KEY",
+							"value": "masrizal",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://trashzaidan.my.id/api/rest/login",
+					"protocol": "http",
+					"host": [
+						"trashzaidan",
+						"my",
+						"id"
+					],
+					"path": [
+						"api",
+						"rest",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Tugas - Menuju Lokasi",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "API-KEY",
+							"value": "masrizal",
+							"type": "default"
+						},
+						{
+							"key": "id_tempat_sampah",
+							"value": "3",
+							"type": "default"
+						},
+						{
+							"key": "id_mobil_sampah",
+							"value": "1",
+							"type": "default"
+						},
+						{
+							"key": "id_pengguna",
+							"value": "5",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://trashzaidan.my.id/api/rest/trash/backend/menuju_lokasi",
+					"protocol": "http",
+					"host": [
+						"trashzaidan",
+						"my",
+						"id"
+					],
+					"path": [
+						"api",
+						"rest",
+						"trash",
+						"backend",
+						"menuju_lokasi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Tugas - Angkut",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "API-KEY",
+							"value": "masrizal",
+							"type": "default"
+						},
+						{
+							"key": "id_list_tugas",
+							"value": "3",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://trashzaidan.my.id/api/rest/trash/backend/angkut",
+					"protocol": "http",
+					"host": [
+						"trashzaidan",
+						"my",
+						"id"
+					],
+					"path": [
+						"api",
+						"rest",
+						"trash",
+						"backend",
+						"angkut"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update volume tempat sampah",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://trashzaidan.my.id/api/rest/trash/backend/update_volume?API-KEY=masrizal&berat=80&id_tempat_sampah=4",
+					"protocol": "http",
+					"host": [
+						"trashzaidan",
+						"my",
+						"id"
+					],
+					"path": [
+						"api",
+						"rest",
+						"trash",
+						"backend",
+						"update_volume"
+					],
+					"query": [
+						{
+							"key": "API-KEY",
+							"value": "masrizal"
+						},
+						{
+							"key": "berat",
+							"value": "80"
+						},
+						{
+							"key": "id_tempat_sampah",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mobile - All Mobil Sampah",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "API-KEY",
+							"value": "masrizal",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://trashzaidan.my.id/api/rest/trash/mobile/mobil_sampah",
+					"protocol": "http",
+					"host": [
+						"trashzaidan",
+						"my",
+						"id"
+					],
+					"path": [
+						"api",
+						"rest",
+						"trash",
+						"mobile",
+						"mobil_sampah"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mobile - All Tempat Sampah",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "API-KEY",
+							"value": "masrizal",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://trashzaidan.my.id/api/rest/trash/mobile/tempat_sampah",
+					"protocol": "http",
+					"host": [
+						"trashzaidan",
+						"my",
+						"id"
+					],
+					"path": [
+						"api",
+						"rest",
+						"trash",
+						"mobile",
+						"tempat_sampah"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mobile - All Histori Tugas User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "API-KEY",
+							"value": "masrizal",
+							"type": "default"
+						},
+						{
+							"key": "id_pengguna",
+							"value": "5",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://trashzaidan.my.id/api/rest/trash/mobile/histori_tugas",
+					"protocol": "http",
+					"host": [
+						"trashzaidan",
+						"my",
+						"id"
+					],
+					"path": [
+						"api",
+						"rest",
+						"trash",
+						"mobile",
+						"histori_tugas"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
