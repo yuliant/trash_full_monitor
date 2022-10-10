@@ -25,7 +25,7 @@ class Mobile extends CI_Controller
         $respon = [
             'status' => true,
             'message' => "Data berhasil didapatkan",
-            'data' => $tempat_sampah
+            'daftar_lokasi' => $tempat_sampah
         ];
         $json = json_encode($respon);
         echo $json;
@@ -44,11 +44,19 @@ class Mobile extends CI_Controller
             die;
         }
 
-        $tugas = $this->db->query("SELECT * FROM list_tugas WHERE ID_PENGGUNA = '$id_pengguna'")->result();
+        $this->db->select(
+            'list_tugas.*, mobil_sampah.*, mobil_sampah.LOKASI as LOKASI_MOBIL_SAMPAH, tempat_sampah.*'
+        );
+        $this->db->from('list_tugas');
+        $this->db->join('tempat_sampah', 'tempat_sampah.ID_TEMPAT_SAMPAH = list_tugas.ID_TEMPAT_SAMPAH', 'left');
+        $this->db->join('mobil_sampah', 'mobil_sampah.ID_MOBIL_SAMPAH = list_tugas.ID_MOBIL_SAMPAH', 'left');
+        $this->db->where('list_tugas.ID_PENGGUNA', $id_pengguna);
+        $tugas = $this->db->get()->result();
+
         $respon = [
             'status' => true,
             'message' => "Data berhasil didapatkan",
-            'data' => $tugas
+            'histori' => $tugas
         ];
         $json = json_encode($respon);
         echo $json;
@@ -70,7 +78,29 @@ class Mobile extends CI_Controller
         $respon = [
             'status' => true,
             'message' => "Data berhasil didapatkan",
-            'data' => $mobil_sampah
+            'mobil_sampah' => $mobil_sampah
+        ];
+        $json = json_encode($respon);
+        echo $json;
+    }
+
+    public function mobil_sampah_ready()
+    {
+        $api_key = htmlspecialchars($this->input->post('API-KEY'), true);
+
+        $cek_api_key = $this->api_m->CekApiKey($api_key);
+        if ($cek_api_key->num_rows() == 0) {
+            $respon = ['status' => false, 'message' => "Error API Key"];
+            $json = json_encode($respon);
+            echo $json;
+            die;
+        }
+
+        $mobil_sampah = $this->db->query("SELECT * FROM mobil_sampah WHERE status = 'ready'")->result();
+        $respon = [
+            'status' => true,
+            'message' => "Data berhasil didapatkan",
+            'mobil_sampah_ready' => $mobil_sampah
         ];
         $json = json_encode($respon);
         echo $json;
