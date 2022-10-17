@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "Login",
+			"name": "Send - Login",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -48,7 +48,7 @@
 			"response": []
 		},
 		{
-			"name": "List Tugas - Menuju Lokasi",
+			"name": "Send - Menuju Lokasi",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -97,7 +97,7 @@
 			"response": []
 		},
 		{
-			"name": "List Tugas - Angkut",
+			"name": "Send - Angkut",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -136,7 +136,7 @@
 			"response": []
 		},
 		{
-			"name": "Update volume tempat sampah",
+			"name": "IOT - Update volume tempat sampah",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -174,7 +174,7 @@
 			"response": []
 		},
 		{
-			"name": "Mobile - All Mobil Sampah",
+			"name": "Get Data - All Mobil Sampah",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -208,7 +208,7 @@
 			"response": []
 		},
 		{
-			"name": "Mobile - All Tempat Sampah",
+			"name": "Get Data - All Tempat Sampah",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -242,7 +242,7 @@
 			"response": []
 		},
 		{
-			"name": "Mobile - All Histori Tugas User",
+			"name": "Get Data - All Histori Tugas User",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -281,7 +281,7 @@
 			"response": []
 		},
 		{
-			"name": "Mobile - All Mobil Sampah Ready",
+			"name": "Get Data - All Mobil Sampah Ready",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -309,6 +309,45 @@
 						"trash",
 						"mobile",
 						"mobil_sampah_ready"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Data - Home",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "API-KEY",
+							"value": "masrizal",
+							"type": "default"
+						},
+						{
+							"key": "id_pengguna",
+							"value": "5",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://trashzaidan.my.id/api/rest/trash/mobile/home",
+					"protocol": "https",
+					"host": [
+						"trashzaidan",
+						"my",
+						"id"
+					],
+					"path": [
+						"api",
+						"rest",
+						"trash",
+						"mobile",
+						"home"
 					]
 				}
 			},
